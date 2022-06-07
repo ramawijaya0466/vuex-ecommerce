@@ -1,79 +1,19 @@
 <template>
-	<div class="row">
-		<div class="col-md-3 mb-3">
+	<h1>All Products</h1>
+	<div class="row border border-3 rounded-3 py-3" style="background-color: #f8f9fa;">
+		<div class="col-md-3 mb-3" v-for="product in getProducts" :key="product.id">
 			<div class="card">
-				<img src="https://images.unsplash.com/photo-1631712351330-9d0a48676ddc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1744&q=80" class="card-img-top" alt="#">
+				<img :src="product.image" class="card-img-top" alt="#">
 				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-						content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-3 mb-3">
-			<div class="card">
-				<img src="https://images.unsplash.com/photo-1631712351330-9d0a48676ddc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1744&q=80" class="card-img-top" alt="#">
-				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-						content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-3 mb-3">
-			<div class="card">
-				<img src="https://images.unsplash.com/photo-1631712351330-9d0a48676ddc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1744&q=80" class="card-img-top" alt="#">
-				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-						content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-3 mb-3">
-			<div class="card">
-				<img src="https://images.unsplash.com/photo-1631712351330-9d0a48676ddc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1744&q=80" class="card-img-top" alt="#">
-				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-						content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-3 mb-3">
-			<div class="card">
-				<img src="https://images.unsplash.com/photo-1631712351330-9d0a48676ddc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1744&q=80" class="card-img-top" alt="#">
-				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-						content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-3 mb-3">
-			<div class="card">
-				<img src="https://images.unsplash.com/photo-1631712351330-9d0a48676ddc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1744&q=80" class="card-img-top" alt="#">
-				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-						content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-3 mb-3">
-			<div class="card">
-				<img src="https://images.unsplash.com/photo-1631712351330-9d0a48676ddc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1744&q=80" class="card-img-top" alt="#">
-				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-						content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
+					<h4 class="card-title">{{ product.name }}</h4>
+					<h5 class="card-title">${{ product.price }}</h5>
+					<p class="card-text">{{ product.description }}</p>
+					<router-link 
+						class="btn btn-primary" 
+						:to="{ name: 'product-detail', params: { id: product.id } }"
+					>
+						Detail Product
+					</router-link>
 				</div>
 			</div>
 		</div>
@@ -81,7 +21,22 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'ProductCard',
+
+  computed: {
+    ...mapGetters({
+      getProducts: 'product/getProducts'
+    })
+  },
+  
+  created() {
+    this.$store.dispatch('product/fetchProducts')
+  },
+  mounted() {
+    // 
+  },
 }
 </script>

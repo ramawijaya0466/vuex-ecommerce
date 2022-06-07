@@ -1,16 +1,39 @@
 <template>
   <div class="home">
-    <ProductBanner />
     <ProductCard />
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import ProductCard from '@/components/ProductCard.vue'
-import ProductBanner from '@/components/ProductBanner.vue'
 
 export default {
   name: 'HomeView',
-  components: { ProductCard, ProductBanner }
+  components: { ProductCard },
+
+  data() {
+    return {
+      // 
+    }
+  },
+  methods: {
+    // 
+  },
+  computed: {
+    ...mapGetters({
+      getProducts: 'product/getProducts'
+    })
+  },
+  
+  created() {
+    this.$store.dispatch('product/fetchProducts')
+  },
+  mounted() {
+    // 
+  },
+  updated() {
+    // log json in here ...
+  }
 }
 </script>
